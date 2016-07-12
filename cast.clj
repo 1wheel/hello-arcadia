@@ -127,7 +127,7 @@ our-sphere
       (set! (.. obj transform position)
         (v3 (Mathf/Cos i) 0 (Mathf/Sin i))))))
 
-
+(+ 1 3) (5)
 
 
 (defn pulse-throb [obj]
@@ -135,14 +135,16 @@ our-sphere
     (v3 (+ 10 (Mathf/Sin Time/time)))))
 
   
-(def sphere-pile-2
-  (doall
-    (for [y (range 1000)]
-      (let [obj (create-primitive :sphere)]
-        (set! (.. obj transform position)
-          (v3 (Mathf/Cos y) y (Mathf/Sin y)))
-        (cmpt+ obj UnityEngine.Rigidbody)
-        (hook+ obj :update #'pulse-throb)
-        obj))))
+  (def sphere-pile-2
+    (doall
+      (for [y (range 1000)]
+        (let [obj (create-primitive :sphere)]
+          (set! (.. obj transform position)
+                (v3 (Mathf/Cos y) y (Mathf/Sin y)))
+          (cmpt+ obj UnityEngine.Rigidbody)
+          (hook+ obj :update #'pulse-throb)
+          obj))))
 
-(dorun (map destroy sphere-pile))
+(map destroy sphere-pile-2)
+
+(dorun (map destroy sphere-pile-2))
