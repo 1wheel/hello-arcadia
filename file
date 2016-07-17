@@ -1,0 +1,120 @@
+; Arcadia REPL
+; Clojure 1.7.0-master-SNAPSHOT
+; Unity 5.3.5f1 (960ebf59018a)
+; Mono 2.6.5 (tarball)
+nil
+
+user=> (use 'clojure.unity)
+clojure.lang.Compiler+AssemblyLoadException: Failed loading Init Type for clojure/unity
+  at clojure.lang.Compiler.TryLoadInitType (System.String relativePath) [0x00000] in <filename unknown>:0 
+  at clojure.lang.RT.load (System.String relativePath, Boolean failIfNotFound) [0x00000] in <filename unknown>:0 
+  at clojure.lang.RT.load (System.String relativePath) [0x00000] in <filename unknown>:0 
+  at clojure/core$load$fn__5820__5824.invoke () [0x00000] in <filename unknown>:0 
+  at clojure/core$load__5827.doInvoke (System.Object ) [0x00000] in <filename unknown>:0 
+  at clojure.lang.RestFn.invoke (System.Object arg1) [0x00000] in <filename unknown>:0 
+  at clojure/core$load_one__5700.invoke (System.Object , System.Object , System.Object ) [0x00000] in <filename unknown>:0 
+  at clojure/core$load_lib$fn__5738__5742.invoke () [0x00000] in <filename unknown>:0 
+user=> (create-primitive :cube)
+System.InvalidOperationException: Unable to resolve symbol: create-primitive in this context
+  at clojure.lang.Compiler.ResolveIn (clojure.lang.Namespace n, clojure.lang.Symbol symbol, Boolean allowPrivate) [0x00000] in <filename unknown>:0 
+  at clojure.lang.Compiler.Resolve (clojure.lang.Symbol symbol) [0x00000] in <filename unknown>:0 
+  at clojure.lang.Compiler.AnalyzeSymbol (clojure.lang.Symbol symbol) [0x00000] in <filename unknown>:0 
+  at clojure.lang.Compiler.Analyze (clojure.lang.CljCompiler.Ast.ParserContext pcontext, System.Object form, System.String name) [0x00000] in <filename unknown>:0 , compiling: (NO_SOURCE_PATH:0:0)
+user=> (use 'arcadia.core)
+nil
+
+user=> (create-primitive :cube)
+#unity/Object -16382
+
+user=> (object-named cube)
+System.InvalidOperationException: Unable to resolve symbol: cube in this context
+  at clojure.lang.Compiler.ResolveIn (clojure.lang.Namespace n, clojure.lang.Symbol symbol, Boolean allowPrivate) [0x00000] in <filename unknown>:0 
+  at clojure.lang.Compiler.Resolve (clojure.lang.Symbol symbol) [0x00000] in <filename unknown>:0 
+  at clojure.lang.Compiler.AnalyzeSymbol (clojure.lang.Symbol symbol) [0x00000] in <filename unknown>:0 
+  at clojure.lang.Compiler.Analyze (clojure.lang.CljCompiler.Ast.ParserContext pcontext, System.Object form, System.String name) [0x00000] in <filename unknown>:0 , compiling: (NO_SOURCE_PATH:0:0)
+user=> (object-named :cube)
+System.InvalidCastException: Cannot cast from source type to destination type.
+  at user$eval__16209__16214.invoke () [0x00000] in <filename unknown>:0 
+  at clojure.lang.Compiler.eval (System.Object form) [0x00000] in <filename unknown>:0 
+  at clojure.lang.Compiler.eval (System.Object form) [0x00000] in <filename unknown>:0 
+  at clojure/core$eval__2929.invoke (System.Object ) [0x00000] in <filename unknown>:0 
+  at arcadia/repl$eval_to_string$fn__13597__13601.invoke () [0x00000] in <filename unknown>:0 
+  at arcadia/repl$eval_to_string__13604.invoke (System.Object ) [0x00000] in <filename unknown>:0 
+  at arcadia/repl$repl_eval_print$fn__13613__13617.invoke () [0x00000] in <filename unknown>:0 
+user=> (object-named "cube")
+nil
+
+user=> (let [prim-kws [:sphere :capsule :cylinder :cube :plane :quad]
+      prim (create-primitive (rand-nth prim-kws))
+      rb (.AddComponent prim Rigidbody)]
+  (.AddForce rb (Vector3. (rand 100)
+                          (rand 100)
+                          (rand 100))))
+
+System.InvalidOperationException: Unable to resolve symbol: Rigidbody in this context
+  at clojure.lang.Compiler.ResolveIn (clojure.lang.Namespace n, clojure.lang.Symbol symbol, Boolean allowPrivate) [0x00000] in <filename unknown>:0 
+  at clojure.lang.Compiler.Resolve (clojure.lang.Symbol symbol) [0x00000] in <filename unknown>:0 
+  at clojure.lang.Compiler.AnalyzeSymbol (clojure.lang.Symbol symbol) [0x00000] in <filename unknown>:0 
+  at clojure.lang.Compiler.Analyze (clojure.lang.CljCompiler.Ast.ParserContext pcontext, System.Object form, System.String name) [0x00000] in <filename unknown>:0 , compiling: (NO_SOURCE_PATH:0:0)
+user=> nil
+
+user=> ;; create cube at random position
+(let [cube (create-primitive :cube)]
+  (set! (.position cube)
+        (v3 (rand)
+            (rand)
+            (rand))))
+
+nil
+
+user=> System.InvalidOperationException: Unable to resolve symbol: v3 in this context
+  at clojure.lang.Compiler.ResolveIn (clojure.lang.Namespace n, clojure.lang.Symbol symbol, Boolean allowPrivate) [0x00000] in <filename unknown>:0 
+  at clojure.lang.Compiler.Resolve (clojure.lang.Symbol symbol) [0x00000] in <filename unknown>:0 
+  at clojure.lang.Compiler.AnalyzeSymbol (clojure.lang.Symbol symbol) [0x00000] in <filename unknown>:0 
+  at clojure.lang.Compiler.Analyze (clojure.lang.CljCompiler.Ast.ParserContext pcontext, System.Object form, System.String name) [0x00000] in <filename unknown>:0 , compiling: (NO_SOURCE_PATH:0:0)
+user=> (NO_SOURCE_PATH 'arcadia.core)
+System.InvalidOperationException: Unable to resolve symbol: NO_SOURCE_PATH in this context
+  at clojure.lang.Compiler.ResolveIn (clojure.lang.Namespace n, clojure.lang.Symbol symbol, Boolean allowPrivate) [0x00000] in <filename unknown>:0 
+  at clojure.lang.Compiler.Resolve (clojure.lang.Symbol symbol) [0x00000] in <filename unknown>:0 
+  at clojure.lang.Compiler.AnalyzeSymbol (clojure.lang.Symbol symbol) [0x00000] in <filename unknown>:0 
+  at clojure.lang.Compiler.Analyze (clojure.lang.CljCompiler.Ast.ParserContext pcontext, System.Object form, System.String name) [0x00000] in <filename unknown>:0 , compiling: (NO_SOURCE_PATH:0:0)
+user=> (ns clojure.unity)
+nil
+
+clojure.unity=> ;; create cube at random position
+(let [cube (create-primitive :cube)]
+  (set! (.position cube)
+        (v3 (rand)
+            (rand)
+            (rand))))
+System.InvalidOperationException: Unable to resolve symbol: create-primitive in this context
+  at clojure.lang.Compiler.ResolveIn (clojure.lang.Namespace n, clojure.lang.Symbol symbol, Boolean allowPrivate) [0x00000] in <filename unknown>:0 
+  at clojure.lang.Compiler.Resolve (clojure.lang.Symbol symbol) [0x00000] in <filename unknown>:0 
+  at clojure.lang.Compiler.AnalyzeSymbol (clojure.lang.Symbol symbol) [0x00000] in <filename unknown>:0 
+  at clojure.lang.Compiler.Analyze (clojure.lang.CljCompiler.Ast.ParserContext pcontext, System.Object form, System.String name) [0x00000] in <filename unknown>:0 , compiling: (NO_SOURCE_PATH:0:0)
+
+(+ 10 10)
+
+# questions
+
+- cast from file to repl * ctrl+, <let go of keys> l
+- cancel bad line *can't! better sublime repl wip
+
+- sublime repl egronomics
+  - paraedit
+  - parns don't line up
+  - set breakpoint
+  
+- what is v3*?
+
+Send from 
+clojure.unity=> v3)
+((0))
+;asdlfkjasdf
+((((((((((((((((()))))))))))))))))
+sdfsdf
+)
+exit
+()
+
+
